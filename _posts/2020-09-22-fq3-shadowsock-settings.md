@@ -156,7 +156,7 @@ https://github.com/shadowsocks/shadowsocks-libev
 
 - ss-redir转发设置其实和ss-local基本一致，前面能跑起来这一步就大概率不会出问题。
 
-  重要提示: 如果之前运行了ss-local，请务必用 ps -A|grep ss-local命令找到ss-local的进程pid，将之kill掉，否则和接下来的试验产生冲突！
+  `重要提示: 如果之前运行了ss-local，请务必用 ps -A|grep ss-local命令找到ss-local的进程pid，将之kill掉，否则和接下来的试验产生冲突！`
 
 - 输入命令：
 
