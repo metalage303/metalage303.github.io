@@ -21,9 +21,9 @@ tags: [GFW]
 - 首先安装相关依赖包、工具：
   
   ````bash
-  # dnf install epel-release -y
-  # dnf install git -y
-  # dnf install -y gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto udns-devel c-ares-devel libev-devel libsodium-devel mbedtls-devel net-tools wget bind-utils
+  dnf install epel-release -y
+  dnf install git -y
+  dnf install -y gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto udns-devel c-ares-devel libev-devel libsodium-devel mbedtls-devel net-tools wget bind-utils
   ````
 
 #### 2、配置 dnscrypt-proxy：
@@ -31,13 +31,13 @@ tags: [GFW]
 - 使用dnf安装dnscrypt-proxy：
 
   ```bash
-  # dnf install -y dnscrypt-proxy
+  dnf install -y dnscrypt-proxy
   ```
 
 - 修改dnscrypt-proxy主配置文件：
 
   ```bash
-  # nano /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+  nano /etc/dnscrypt-proxy/dnscrypt-proxy.toml
   ```
   注意这行, 确保中括号里面不要有任何内容即可:
   ```
@@ -48,7 +48,7 @@ tags: [GFW]
   修改dnscrypt-proxy的socket配置文件:
 
   ```bash
-  # nano /usr/lib/systemd/system/dnscrypt-proxy.socket
+  nano /usr/lib/systemd/system/dnscrypt-proxy.socket
   ```
 
   将Socket这一节整体替换为下面这样：
@@ -65,10 +65,10 @@ tags: [GFW]
 - 文件都修改完毕后，执行以下命令让他们开机自启：
 
   ```bash
-  # systemctl start dnscrypt-proxy.socket  
-  # systemctl enable dnscrypt-proxy.socket
-  # systemctl start dnscrypt-proxy.service
-  # systemctl enable dnscrypt-proxy.service
+  systemctl start dnscrypt-proxy.socket  
+  systemctl enable dnscrypt-proxy.socket
+  systemctl start dnscrypt-proxy.service
+  systemctl enable dnscrypt-proxy.service
   ```
 
 #### 3、配置 dnsmasq：
@@ -76,18 +76,16 @@ tags: [GFW]
 - 使用dnf安装dnsmasq
 
   ```bash
-  # dnf install epel-release -y
-  # dnf install -y dnsmasq
-  # systemctl start dnsmasq
-  # systemctl enable dnsmasq
+  dnf install epel-release -y
+  dnf install -y dnsmasq
+  systemctl start dnsmasq
+  systemctl enable dnsmasq
   ```
 
 - 修改dnsmasq配置文件:
 
-  PS: 本文所有涉及文件修改的地方，括号（）里的内容都是笔者的讲解，存盘的时候切不可把这部分也包含进去了哦！😓
-  
   ```bash
-  # nano /etc/dnsmasq.conf
+  nano /etc/dnsmasq.conf
   ```
   
   ```
@@ -103,7 +101,7 @@ tags: [GFW]
 - dnsmasq 配置文件语法检查, 如果显示Error表示上述修改内容有误, 请仔细检查:
 
   ```bash
-  # dnsmasq --test
+  dnsmasq --test
   ```
   
 - 设置dnsmasq和本机dns的关联
@@ -113,13 +111,13 @@ tags: [GFW]
 - 首先解锁：
 
   ```bash
-  # chattr -i /etc/resolv.conf
+  chattr -i /etc/resolv.conf
   ```
 
 - 解锁之后就可以修改了:
 
   ```bash
-  # nano /etc/resolv.conf
+  nano /etc/resolv.conf
   ```
 
   删除这个文件的所有nameserver部分, 或者在前面加#号注释, 只留一行：
@@ -132,20 +130,20 @@ tags: [GFW]
 - 编辑完成后需要加锁, 以防被系统进程自动修改:
 
   ```bash
-  # chattr +i /etc/resolv.conf
+  chattr +i /etc/resolv.conf
   ```
 
 - 查看一下加锁状态: (PS: 下次如需修改此文件，需先解锁再编辑 )
 
   ```bash
-  # lsattr /etc/resolv.conf
+  lsattr /etc/resolv.conf
   ```
 
 - 接下来, 打通dnsmasq和本机预定义host的关联:
   本机的 /etc/hosts 文件预先存储了一些IP和域名的对应关系，需要将他们指向dnsmasq
 
   ```bash
-  # nano /etc/hosts
+  nano /etc/hosts
   ```
 
   ```
@@ -156,7 +154,7 @@ tags: [GFW]
 - 尽管不是必须, 但鉴于修改内容较多，建议重启一次机器:
 
   ```bash
-  # reboot
+  reboot
   ```
 
 #### 测试
@@ -164,13 +162,13 @@ tags: [GFW]
 - 在测试之前首先安装测试工具Dig:
 
   ```bash
-  # dnf install bind-utils
+  dnf install bind-utils
   ```
 
 - 输入以下命令测试:
 
   ```bash
-  # dig -x rockage.lan
+  dig -x rockage.lan
   ```
 
   如果回显：**[SERVER: 127.0.0.1#53(127.0.0.1)]** 表示OK
@@ -200,13 +198,13 @@ tags: [GFW]
 - 首先下载 dnsmasq-gfwlist.py：
 
   ```bash
-  # wget https://gist.githubusercontent.com/lanceliao/85cd3fcf1303dba2498c/raw/7391429f8fdc5e3f4c82ba98b98767922b8bb473/dnsmasq-gfwlist.py
+  wget https://gist.githubusercontent.com/lanceliao/85cd3fcf1303dba2498c/raw/7391429f8fdc5e3f4c82ba98b98767922b8bb473/dnsmasq-gfwlist.py
   ```
 
 - 然后对文件进行一点修改：
 
   ```bash
-  # nano dnsmasq-gfwlist.py
+  nano dnsmasq-gfwlist.py
   ```
 
   需要修改的内容不多，只需要将：
@@ -221,13 +219,13 @@ tags: [GFW]
   PS: 端口号30053是我们之前设置好的dnscrypt-proxy的端口。另外，因为这个文件是Python 2.7写的，注意不能用python 3.8来运行，如果此时你的系统还没有安装Python 2.7,  可以用dnf命令先安装：
   
   ````bash
-  # dnf install -y python27
+  dnf install -y python27
   ````
 
 - 接着，开始编译执行dnsmasq-gfwlist.py：
 
   ```bash
-  # python2.7 dnsmasq-gfwlist.py
+  python2.7 dnsmasq-gfwlist.py
   ```
 
   注意：这一步需要在梯子已经建好的情况下，因为程序会自动去下载gfwlist文件，下载这个文件需要翻墙。
@@ -235,7 +233,7 @@ tags: [GFW]
 - 程序运行完毕，转换后的文件将自动保存在/etc/dnsmasq.d 里，先查看一下文件内容：
 
   ```bash
-  # cat /etc/dnsmasq.d/gfwlist.conf
+  cat /etc/dnsmasq.d/gfwlist.conf
   ```
 
   如果看到一大堆类似这样的内容：
@@ -266,21 +264,21 @@ tags: [GFW]
 - 退出后，再做一次语法检查确保配置文件无误：
 
   ```bash
-  # dnsmasq --test
+  dnsmasq --test
   ```
 
 - 最后重启dnsmasq并检查启动是否成功：
 
   ```bash
-  # systemctl restart dnsmasq 
-  # systemctl status dnsmasq
+  systemctl restart dnsmasq 
+  systemctl status dnsmasq
   ```
 
 - 如果出现： dnsmasq: failed to create IPset control socket: Permission denied
   这个错误，这个多半是由于selinux没有关闭造成的，现在关闭selinux:
 
   ```bash
-  # nano /etc/selinux/config
+  nano /etc/selinux/config
   ```
 
   ```
@@ -292,13 +290,13 @@ tags: [GFW]
   修改selinux需要重启机器：
 
   ```bash
-  # reboot
+  reboot
   ```
 
   重启后，输入以下命令确认selinux已关闭：
 
   ```bash
-  # sestatus
+  sestatus
   ```
 
 - 如果出现： failed to create listening socket for port 53: Address already in use
@@ -306,7 +304,7 @@ tags: [GFW]
   首先使用这个命令，查看一下到底是哪个程序占用了53端口：
 
   ```bash
-  # systemctl list-sockets
+  systemctl list-sockets
   ```
 
   如无意外，我猜大概率是跟 **dnscrypt-proxy.socket** 打架了，解决方法：
@@ -318,36 +316,36 @@ tags: [GFW]
 
 
     - /etc/dnscrypt-proxy/dnscrypt-proxy.toml 文件中：**listen_addresses = []** （这个中括号一定要为空）
-
+    
     - /usr/lib/systemd/system/dnscrypt-proxy.socket 文件中：**Socket** 一节原封不动复制粘贴我的配置
 
 - 检查完毕后，用 **reboot** 命令重启，重启后输入：
 
   ```bash
-  # systemctl status dnscrypt-proxy
-  # systemctl status dnsmasq 
+  systemctl status dnscrypt-proxy
+  systemctl status dnsmasq 
   ```
 
     如果两者都显示绿字而没有任何红字，表示设置成功了！
     如果实在问题多多，就用这个命令仔细看看启动log，再具体分析:
 
   ```bash
-  # journalctl -r -u dnscrypt-proxy.service 
+  journalctl -r -u dnscrypt-proxy.service 
   ```
 
 #### 5、设置 ipset
 - 首先是建一个名为 "gfwlist" 的表:
 
   ```bash
-  # ipset create gfwlist hash:net
+  ipset create gfwlist hash:net
   ```
 
-  > 注意这个gfwlist和上面我们说的gfwlist文件不是一回事, gfwlist 源文件通过转换后能够被dnsmasq识别，那么，通过dnsmasq 筛选出来的国外域名会转交给 dnscrypt-proxy 做加密解析，最终，这些解析后的IP存放在哪呢？就存放在现在咱们用ipset做的这个名叫gfwlist的表里了。
+  注意这个gfwlist和上面我们说的gfwlist文件不是一回事, gfwlist 源文件通过转换后能够被dnsmasq识别，那么，通过dnsmasq 筛选出来的国外域名会转交给 dnscrypt-proxy 做加密解析，最终，这些解析后的IP存放在哪呢？就存放在现在咱们用ipset做的这个名叫gfwlist的表里了。
 
 -  表建好之后，现在查看一下：
 
   ```bash
-  # ipset list gfwlist
+  ipset list gfwlist
   ```
 
   意料之中，目前表是空的，Members后面什么都没有。
@@ -355,13 +353,13 @@ tags: [GFW]
 - 现在输入：
 
   ```bash
-  # nslookup qq.com
+  nslookup qq.com
   ```
 
   再输入：
 
   ```bash
-  # ipset list gfwlist
+  ipset list gfwlist
   ```
 
   啥变化也没有嘛，为何？因为这是一个国内网站，并没有被gfwlist收录
@@ -369,13 +367,13 @@ tags: [GFW]
   接着输入：
 
   ```bash
-  # nslookup facebook.com
+  nslookup facebook.com
   ```
 
   再输入：
 
   ```bash
-  # ipset list gfwlist
+  ipset list gfwlist
   ```
 
   神奇的事情发生了！内容有变化，Members后面跟了一个IP，这就对了，因为这是一个被gfwlist收录的域名，所以被ipset过滤了进来！你还可以多试几个网站，比如google.com、twitter.com、youtube.com 等等你懂的系列网站，你会发现Members列表会越来越长。
@@ -385,4 +383,5 @@ tags: [GFW]
   1. 用nslookup命令查询一个国内域名，gfwlist表中的Members不增加；
   2. 用nslookup命令查询一个被GFW墙了的域名，gfwlist表中的Members增加其对应的IP地址。
   
-能做到这两步，恭喜！！说明本文的所有目的你都实现了！
+
+恭喜，本文的所有目标你都实现了！

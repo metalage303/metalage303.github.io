@@ -17,10 +17,8 @@ tags: [GFW]
   
   - 2000年8月19日，法轮功网站《大纪元时报》创刊，GFW与翻墙软件这场旷日持久的博弈从此正式拉开序幕。
 
-- 翻墙软件从大的架构来说，直到今天仍然没有大的变化，无论花样如何繁多，其基本结构还是围绕着代理服务器在做文章，简单地说就是使用特定的中转服务器完成数据传输。例如，用户无法直接访问Google，但代理服务器可以访问，**且用户可以直接连接代理服务器**，那么用户就可以通过特定软件连接代理服务器，然后由代理服务器获取网站内容并回传给用户，从而实现代理上网的效果。
+- 翻墙软件从大的架构来说，直到今天仍然没有大的变化，无论花样如何繁多，其基本结构还是围绕着代理服务器在做文章。例如：用户无法直接访问Google，但代理服务器可以访问，**且用户可以直接连接代理服务器**，那么用户就可以通过特定软件连接代理服务器，然后由代理服务器获取网站内容并回传给用户，从而实现代理上网的效果。
 
-  
-  
   在GFW初期，主要针对的是法轮功网站，很自然，这时候的翻墙软件大部分也是由法轮功网站研究出来的，主要通过邮件渠道流入国内，最著名的是由“动态网”研发的自由门，它是一个免费的绿色软件，不必安装即可直接使用，“自由门” 是所有FQ软件的鼻祖。
 
 ----
@@ -28,36 +26,34 @@ tags: [GFW]
 
 - 随着时间的发展，GFW封锁手段开始升级，针对TCP连接重置、DNS劫持、IP封锁和URL关键字过滤等等层出不穷，翻墙软件这边也开始百花齐放，你方唱罢我登场，反正能翻就是王道。此期间，GFW的打击面也开始扩大，特别是2010年1月google被迫退出中国是一个分水岭，在此之前的GFW打击的还是少量的与法轮功和民运有关的网站，在此之后，开始大面积向google、facebook这样提供公共服务的网站下毒手，这标志着共产党是铁了心要向自由世界做一个了断。
 
-  
-
-- 这期间的翻墙方式主要有：
+  这期间的翻墙方式主要有：
 
 - **自由门**，因为背靠法轮功，拥有强大的资金支持，因此这一类轮子系翻墙软件至今仍然没有退出历史舞台。
 
-  ![](https://github.com/rockage/rockage.github.io/blob/master/_posts/images/fq-001.png?raw=true)
+  ![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/fq-001.png?raw=true)
 
 ----
 
   - **镜像网站**，大的境外网络机构，比如google之类都不止一台服务器，通过修改host文件，绕开DNS污染，将google定向到指定IP（或者直接在浏览器中输入IP），这种不需要翻墙软件介入的原始方案也凑效过一段时间。但后来GFW检查力度升级，每一个网络连接出境前都会被扫描过一遍，只要你http header里含有"google"这个字符串，就把你封了，此方法失效。
 
-     ![](https://github.com/rockage/rockage.github.io/blob/master/_posts/images/fq-002.png?raw=true)
+     ![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/fq-002.png?raw=true)
 
 ----
 
   - **Goagent**， 在google被封早期，虽然其主要业务被禁，但是GFW并没有封锁google开发者平台，于是Goagent在这个夹缝中赢得了一线生机。大家利用谷歌开发者平台，在上面搭设代理服务器，通过HTTPS协议翻墙，这其实就是用谷歌服务器搭的一个梯子。后来随着谷歌开发者平台本身也被封锁了，这条路也跟着就死了。
 
-     ![](https://github.com/rockage/rockage.github.io/blob/master/_posts/images/fq-003.png?raw=true) 
+     ![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/fq-003.png?raw=true) 
 
 ----
 
   - **Tor**，本质上它不是用来翻墙的，它的主要原理是将数据包通过多次加密代理传输的方式而达到匿名的目的，它最主要的用途是用来访问一些 隐蔽在正常网络世界之下的 **“暗网”**（例如著名的`丝绸之路`） 。尽管主要用途是匿名而不是翻墙，但如果最终的出口节点位于境外，也是能起到翻墙的作用的。但是，大约在2010年的两会期间，GFW 开始全面屏蔽 TOR 在全球的节点，从那之后，天朝之内的 TOR 就很难独立联网了。
 
-    ![](https://github.com/rockage/rockage.github.io/blob/master/_posts/images/fq-004.png?raw=true)
+    ![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/fq-004.png?raw=true)
     ----
     
   - **SSH隧道**，ssh tunnel技术，这个方案的初衷也不是用来翻墙的，SSH是一种远程协议，它主要是用来连接Linux主机，因为其流量是加密的，于是人们就想办法用它来做翻墙工具，比如你在浏览器发出一个`google.com`的http请求，这个http数据首先被伪装成SSH协议并加密，这样对GFW来说，这并非一个http数据，而是一个SSH数据，并且数据还进行了加密，GFW无法识别这个数据包里面是否包含`google.com`这个字符串。但是，因为这种方案本身就不是用来翻墙的，它的特征太明显（SSH协议），所以当你的SSH流量过多的时候，GFW就能反向推算出你在翻墙，于是节点IP一封，万事休矣。这也是当前GFW的一种普遍封锁策略：尽管我无法确切地知道你的数据到底是什么，但是你一天到晚向一个IP走一些不是常规类型的网络协议，那你就是在翻墙。
 
-    ![](https://github.com/rockage/rockage.github.io/blob/master/_posts/images/fq-005.png?raw=true)
+    ![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/fq-005.png?raw=true)
 
 ----
 
@@ -68,7 +64,7 @@ tags: [GFW]
 
       - 一些老牌的VPN提供商比如NordVPN、Express VPN等等，这些大公司拥有庞大的VPN节点，其IP规模甚至大到可以跟GFW正面硬刚的程度！以至于尽管GFW能够识别并封锁这些节点，但是野火烧不尽，春风吹又生，你封一个我再建一个，子子孙孙无穷匮也。
 
-    ![](https://github.com/rockage/rockage.github.io/blob/master/_posts/images/fq-0055.png?raw=true)
+    ![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/fq-0055.png?raw=true)
 
 ----
 
@@ -83,7 +79,7 @@ tags: [GFW]
 
     总的来说，SS系列翻墙软件短期内还不会终结，其薪火将一直传承下去。
 
-    ![](https://github.com/rockage/rockage.github.io/blob/master/_posts/images/fq-006.png?raw=true)
+    ![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/fq-006.png?raw=true)
 
   - **Shadowsocks的技术特点与GFW的反制方法：**
 
@@ -93,33 +89,33 @@ tags: [GFW]
 
     - 另一个优势是，相对于传统翻墙方案，SS采用了较为完善和成熟的工业级的加密算法，这让GFW的嗅探变得困难起来，虽然GFW有能力对翻墙的数据进行解密，但这需要动用庞大到不切实际的算力资源（当然，如果被GFW列为重点监测对象另当别论）。那么，我们可以说用SS翻墙就是安全的吗？大家还是不要高兴得太早，跟之前说过的SSH隧道方案一样的遭遇，你一天到晚大量的用Socks5访问同一个IP地址的同一个奇怪端口，你这是在干嘛？这本身就是一个明显特征啊，虽然GFW不能轻易地破译出你的数据到底是什么，但仅就这一个特征就能判定你大概率是在翻墙。
 
-      ![](https://github.com/rockage/rockage.github.io/blob/master/_posts/images/fq-007.png?raw=true)
+      ![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/fq-007.png?raw=true)
 
 - 于是乎，后来又有了 **Torjan** 翻墙方案，这个方案在SS的基础上进行了改良，它的特点是将数据包正大光明地通过https(443端口)传输到一个公开能访问的境外网站。当然，这个网站是你为了忽悠GFW自建的，https协议所需要的TLS证书之类的一应俱全，看上去内容也是一些正儿八经的商业网站常见栏目。这让GFW的检测难度更大了，首先，协议走的是https，这种协议在正常网络世界每秒钟都是以千万计地产生着的，不具备特殊性。其次，目标网站确实是一个 “正常” 的，可以访问的商业网站，你怎么判定数据是有问题的呢？ Torjan在一定程度上增强了安全性，但话又说回来，如果你的数据量太大，比如每天都有几个G的流量从这个所谓的 “正常网站” 流进流出， 这也是一个特征，你有什么业务需要对同一个网站有这么大的需求？GFW仍然可以以此断定你在翻墙。因此，目前而言，姑且不论GFW有没有能力在技术上对你实施精准打击，比如基于大数据技术的**深度数据包检测**、**机器学习**、**随机预测算法**等等。咱们就仅从逻辑层面而言（反向推理）都只能遗憾地接受一个事实：没有任何一个翻墙方案是可以真正做到绝对隐秘和绝对可靠的。
 
-![](https://github.com/rockage/rockage.github.io/blob/master/_posts/images/fq-008.png?raw=true)
+![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/fq-008.png?raw=true)
 
   - **SS系列软件的客户端介绍**：
 
     - PC上使用的: **shadowsocks-windows** ，这个软件只能用于网页，如果需要全局代理的话，还需要配合**SSTab**或者**Proxifier**转换。使用方面非常简单，绿色软件无需安装，开箱即用。
 
-      ![](https://github.com/rockage/rockage.github.io/blob/master/_posts/images/fq-009.png?raw=true)
+      ![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/fq-009.png?raw=true)
 
     - 安卓使用的：**shadowsocks-android**，这个软件自身就已经内置了全局映射，安装后即可实现全局代理，安装方面得益于安卓系统的开放性，只需要找到这个apk包，点击安装即可。
 
-      ![](https://github.com/rockage/rockage.github.io/blob/master/_posts/images/fq-010.png?raw=true)
+      ![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/fq-010.png?raw=true)
 
     - IOS使用的：**shadowrockets**，俗称小火箭，和安卓版一样，这个软件自身也能实现全局代理。安装方面由于IOS系统不越狱的话只能通过app市场安装软件，而在国区app store是搜索不到这个软件的。这时候你需要先注册一个美区apple id账号，先将apple id切换到美区账号，到app store下载了之后再切换回来迂回安装。
 
-      ![](https://github.com/rockage/rockage.github.io/blob/master/_posts/images/fq-011.png?raw=true)
+      ![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/fq-011.png?raw=true)
 
     - Linux使用的：**Shadowsocks-libev**，需要特别说明的是，Shadowsocks-libev在Linux系统下安装后直接生成三端（服务器端、客户端、转发端），分别是SS-Server、SS-Local和SS-Redir。也就是说你在Linux系统下搭建SS服务器，或者用它来连接SS服务器，或者用它来转发数据，都是用同一个程序。
 
-      ![](https://github.com/rockage/rockage.github.io/blob/master/_posts/images/fq-012.png?raw=true)
+      ![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/fq-012.png?raw=true)
 
     - **Clash**：这是一个比较新的多端代理软件，可以运行在PC、Android和IOS平台上，它支持几乎所有的Socks5翻墙协议，也支持智能分流，它的节点管理功能非常强大，如果你的机场是那种有着几百个节点的大型机场，用它来管理节点就非常轻松了。但是Clash不能直接翻墙，它的原理是将远程翻墙服务器（例如SS）映射到本地端口，再经由 **SwitchyOmega** 这一类插件或者提供给 **SSTab** 这样的全局代理软件配合使用。
 
-      ![](https://github.com/rockage/rockage.github.io/blob/master/_posts/images/fq-013.png?raw=true)
+      ![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/fq-013.png?raw=true)
 
 ----
 
@@ -131,13 +127,13 @@ tags: [GFW]
     - 隐蔽性: V2Ray 的节点可以伪装成正常的网站（HTTPS），将其流量与正常的网页流量混淆，以避开第三方干扰。
     - 反向代理: 通用的反向代理支持，可实现内网穿透功能。
 
-![](https://github.com/rockage/rockage.github.io/blob/master/_posts/images/fq-014.png?raw=true)
+![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/fq-014.png?raw=true)
 
 
 
 简单地说V2Ray 是一种高度定制化的平台，而不是某一个具体的工具，你既可以用它来搭建一个与 `Shadowsocks` 相仿的梯子，也可以用来实现与 `Torjan` 一样的功能。总的来说，`V2Ray`的产生是与GFW斗争升级的产物。因此，`V2Ray`对搭建者的知识储备很高，没有一点基础概念想要玩转`V2Ray`是比较困难的。
 
-![](https://github.com/rockage/rockage.github.io/blob/master/_posts/images/fq-015.png?raw=true)
+![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/fq-015.png?raw=true)
 
 
 
@@ -147,13 +143,13 @@ tags: [GFW]
   
   - `VPS`是Virtual Private Server (虚拟私有服务器) 的缩写，所谓 `机场`，并不是一个十分严格的定义，一种广为流传的说法是：因为Shadowsocks的Logo是一架纸飞机，于是大家就把那些Shadowsocks服务提供商称为“机场”。
   
-    ![](https://github.com/rockage/rockage.github.io/blob/master/_posts/images/fq-016.png?raw=true)
+    ![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/fq-016.png?raw=true)
   
     
   
   - 而**VPS**跟传统服务器不同的是，传统意义上的远程服务器，是一台真实存在的电脑，它有着独立的CPU内存和硬盘，这台服务器摆放在云服务提供商的机房里，你可以通过SSH（注意前面提到过这玩意）协议对其进行远程管理。但因为这是一台正儿八经的实体机器，租用它的费用可不低，一般个人用户往往难以承担。 后来，因为虚拟化技术的发展，可以在同一台服务器上安装多个虚拟机，这样就相当于把一台实体服务器掰开成数份提供给用户使用，如此一来费用也被分摊了，这种虚拟服务器的租借费用比真实服务器便宜多了，根据其不同配置，最低的甚至只需要几美金一个月。VPS的好处是，对使用者而言，与使用真实服务器没有区别，可以安装的软件也跟实体服务器一样。
   
-    ![](https://github.com/rockage/rockage.github.io/blob/master/_posts/images/fq-017.png?raw=true)
+    ![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/fq-017.png?raw=true)
   
   - 由于VPS的普及，大家纷纷开始利用它进行翻墙操作，在属于自己的服务器上部署例如SS之类软件。VPS的好处是服务器IP是自己私有的，不用担心机场钓鱼或者跑路等风险。其次，这不好说是优点还是缺点，因为服务商提供给你的只是一台没有安装任何内容的空服务器，所有的一切技术细节都需要你自己去研究，其部署难度远超机场，但又因为你必须掌握这些知识，所以反过来也倒逼其使用者不断提供其自身的知识储备，促使越来越多网络行家的诞生。从宏观上对抗GFW这个角度来说，有着一定积极意义。
   
@@ -186,11 +182,11 @@ tags: [GFW]
     
   - **Starlink**，是太空服务公司SpaceX计划推出的一项通过近地轨道卫星群，提供覆盖全球的高速互联网接入服务。一旦大规模上线，费用下降之后，GFW可能只能通过行政而非技术手段进行封堵了。
 
-    ![](https://github.com/rockage/rockage.github.io/blob/master/_posts/images/fq-018.png?raw=true)
+    ![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/fq-018.png?raw=true)
 
   - **IPv6**，近乎无限的IP地址，将让GFW的拦截更加困难，这也是国内消极对待ipv6的原因之一，在GFW没有完善的应对策略之前，各大运营商肯定不会大规模上线ipv6。
 
-    ![](https://github.com/rockage/rockage.github.io/blob/master/_posts/images/fq-019.png?raw=true)
+    ![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/fq-019.png?raw=true)
 
   最近发生的一切，说明历史可能真的会发展到第三阶段。但是，无论经历多么漫长的黑暗，我相信光明最终将会到来，GFW终将被推倒！引用一句 **V2Ray** 团队放在其官网上的一句话作为结语：
 

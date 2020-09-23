@@ -21,8 +21,8 @@
 title: Metalage
 email: metalage303@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  I Don't Wanna chaneg the world,<br>
-  I Don't Want the world to change me.
+  I Don't wanna chaneg the world,
+  I Don't want the world to change me.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: metalage
