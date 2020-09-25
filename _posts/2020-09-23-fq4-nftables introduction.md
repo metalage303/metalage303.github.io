@@ -29,7 +29,7 @@ tags: [GFW]
     
   - PS: 在三层结构中，位于顶层的Firewalld只是为了让防火墙操作更简单和人性化，它并非防火墙系统的必需品，如果操作者对中间层（Iptables或Nftwable）的配置很熟悉，可以关闭Firewalld，纯粹用iptables/nftables搭建防火墙，其效果一样。
   
-  ![nft-01](D:\Sync\Code\metalage303.github.io\_posts\images\nft-01.png)
+  ![](https://raw.githubusercontent.com/metalage303/metalage303.github.io/master/_posts/images/nft-01.png)
 
 
 
@@ -72,7 +72,7 @@ tags: [GFW]
 
       - `postrouting`：后路由链，数据包离开时的最后一道关卡。
 
-        ![nft-02](D:\Sync\Code\metalage303.github.io\_posts\images\nft-02.png)
+        ![](https://raw.githubusercontent.com/metalage303/metalage303.github.io/master/_posts/images/nft-02.png)
 
         - 数据包的流向概括：
 
@@ -302,7 +302,7 @@ tags: [GFW]
 
 **数据包从两台不同的局域网分机 发送 到QQ.COM的流程如下(PS: SRC=源 DST=目标)：**
 
-![nft-03](D:\Sync\Code\metalage303.github.io\_posts\images\nft-03.png)
+![](https://raw.githubusercontent.com/metalage303/metalage303.github.io/master/_posts/images/nft-03.png)
 
 - 192.168.1.2:2345 发出一个数据包到 58.247.214.47:80（QQ服务器,80端口）
 
@@ -314,7 +314,7 @@ tags: [GFW]
 
 **当QQ.COM收到这两个数据包后，数据回传到局域网分机的流程如下：**
 
-![nft-04](D:\Sync\Code\metalage303.github.io\_posts\images\nft-04.png)
+![](https://raw.githubusercontent.com/metalage303/metalage303.github.io/master/_posts/images/nft-04.png)
 
 - 数据包**接收**过程其实就是其**发送**的逆过程，网关根据之前在**Connection Track Table** 中记录的信息，将数据包还原，然后发送回局域网分机，具体见图，这里就不赘述了。
 
