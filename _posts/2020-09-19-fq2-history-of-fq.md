@@ -68,7 +68,7 @@ tags: [GFW]
 
 ----
 
-  - **SOCKS5(加密版)**，相对于VPN，这是目前翻墙软件的另一个大类，大名鼎鼎的**Shadowsocks** （简称SS）就是利用这个机制的翻墙软件，这是一个划时代的工具，但其作者clowwindy在2015年被请喝茶后，SS项目停止更新，另一个技术大牛 breakwa11接手了这个项目，并为其增加了更多功能，名字后面也加了个**R**，变成了**ShadowsocksR**（简称SSR），得益于clowwindy一开始就开源了Shadowsocks源代码，因此目前这个项目呈现出各种版本：
+  - **SOCKS5(加密版)**，相对于VPN，这是目前翻墙软件的另一个大类，大名鼎鼎的**Shadowsocks** （简称SS）就是利用这个机制的翻墙软件，这是一个划时代的工具，但其作者clowwindy在2015年被请喝茶后，SS项目停止更新，另一个技术大牛 breakwa11接手了这个项目，并为其增加了更多功能，名字后面也加了个**R**，变成了**ShadowsocksR**（简称SSR），得益于clowwindy一开始就开源了Shadowsocks，因此目前这个项目呈现出各种版本：
 
     - SS，由原作者clowwindy用Python语言写的初版，也称为Python版
     - SSR, 由breakwa11接手的版本，也是由Python写成
