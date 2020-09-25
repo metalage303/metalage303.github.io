@@ -23,9 +23,9 @@ tags: [GFW]
   - Firewalld：位于最顶层的前端工具（支持图形和命令行），通过调用在后端运行Iptables（或Nftables）让防火墙配置及使用变得更容易。
 
   - 防火墙在Linux系统中的演变：
-    - 最早：只有两层Iptables -> Netfilter
-    - 后来：为了简化操作，添加了Firewalld，变成了3层：Firewalld -> Iptables -> Netfilter
-    - 现在：新版本Linux系统中，基本结构不变，还是3层：Firewalld -> Nftable -> Netfilter（请注意Iptables被替换成更时髦的Nftables）
+    - 最早：只有两层Iptables -) Netfilter
+    - 后来：为了简化操作，添加了Firewalld，变成了3层：Firewalld -) Iptables -) Netfilter
+    - 现在：新版本Linux系统中，基本结构不变，还是3层：Firewalld -) Nftable -) Netfilter（请注意Iptables被替换成更时髦的Nftables）
     
   - PS: 在三层结构中，位于顶层的Firewalld只是为了让防火墙操作更简单和人性化，它并非防火墙系统的必需品，如果操作者对中间层（Iptables或Nftwable）的配置很熟悉，可以关闭Firewalld，纯粹用iptables/nftables搭建防火墙，其效果一样。
   
@@ -41,7 +41,7 @@ tags: [GFW]
 
 - 一个完整的nftables防火墙规则由簇（Family）、表（Tables）、链（Chains）、规则（Rules）组成。
 
-- 基本结构：簇 > 表 > 链 > 规则
+- 基本结构：簇 ) 表 ) 链 ) 规则
 
   - **簇（Family）** ， 由5个基本簇组成：
     - ip: 匹配ipv4数据包
@@ -104,33 +104,33 @@ tags: [GFW]
     以上这些动作，可用匹配的部分列表如下：
     
     - meta （元属性，如接口）
-      - oif <output interface INDEX>
-      - iif <input interface INDEX>
-      - oifname <output interface NAME>
-      - iifname <input interface NAME>
+      - oif (output interface INDEX)
+      - iif (input interface INDEX)
+      - oifname (output interface NAME)
+      - iifname (input interface NAME)
         （oif 和 iif 接受字符串参数并转换为接口索引）
         （oifname 和 iifname 更具动态性，但因字符串匹配速度更慢）
     - icmp （ICMP协议）
-      - type <icmp type>
+      - type (icmp type)
     - icmpv6 （ICMPv6协议）
-      - type <icmpv6 type>
+      - type (icmpv6 type)
     - ip （IP协议）
-      - protocol <protocol>
-      - daddr <destination address>
-      - saddr <source address>
+      - protocol (protocol)
+      - daddr (destination address)
+      - saddr (source address)
     - ip6 （IPv6协议）
-      - daddr <destination address>
-      - saddr <source address>
+      - daddr (destination address)
+      - saddr (source address)
     - tcp （TCP协议）
-      - dport <destination port>
-      - sport <source port>
+      - dport (destination port)
+      - sport (source port)
     - udp （UDP协议）
-      - dport <destination port>
-      - sport <source port>
+      - dport (destination port)
+      - sport (source port)
     - sctp （SCTP协议）
-      - dport <destination port>
-      - sport <source port>
-    - ct （链接跟踪） state <new | established | related | invalid>
+      - dport (destination port)
+      - sport (source port)
+    - ct （链接跟踪） state (new / established / related / invalid)
 
 ----
 
@@ -148,14 +148,16 @@ tags: [GFW]
 
   在 inet 簇的 my_table 表里建一个链，链名：my_chain
 
-##### 3.1 增加规则
+#### 3.1 增加规则
 
 - 第3步，建几条规则：
-  `nft add rule inet my_table my_chain ip saddr 127.0.0.1 accept`
-  `nft add rule inet my_table my_chain ip saddr 127.0.0.2 accept`
-  `nft add rule inet my_table my_chain ip saddr 127.0.0.3 accept`
 
-  注意，这三条规则没有太大意义，仅供展示之用，
+  ```bash
+  nft add rule inet my_table my_chain ip saddr 127.0.0.1 accept
+  nft add rule inet my_table my_chain ip saddr 127.0.0.2 accept
+  nft add rule inet my_table my_chain ip saddr 127.0.0.3 accept
+  (这三条规则没有太大意义，仅供展示之用)
+  ```
 
   第一条规则的含义是：在 inet 簇的 my_table 表 的 my_chain 链里，创建一条新的规则: 来自源ip (saddr) 127.0.0.1 的数据包，采取：放行（accept）策略。
 
@@ -204,7 +206,7 @@ tags: [GFW]
 
   注意：在2号规则上面，新增了一条规则，序号为5，此处也可以采用nft add 命令去新增规则，与insert不同的是：**net add总是在链的末端添加规则，net insert 则可以在指定序号的前面添加规则**。
 
-##### 3.2 删除规则
+#### 3.2 删除规则
 
 - **delete 命令**，下面演示一下如何删除规则，比如现在删除第3号规则：
   `nft delete rule  inet my_table my_chain handle 3`
@@ -223,7 +225,7 @@ tags: [GFW]
 
   注意：第3号规则消失了，已被删除。
 
-  - 删除可以用nft delete或者nft flush来完成，按照： **表 > 链 > 规则** 的作用范围，有着不同的效力：
+  - 删除可以用nft delete或者nft flush来完成，按照： **表 ) 链 ) 规则** 的作用范围，有着不同的效力：
     - 微（删规则）：nft delete rule  inet my_table my_chain handle 3 （删除my_table\my_chain链中的3号规则）
     - 小（清空规则）：nft flush chain inet my_table my_chain （清空my_table\my_chain链的所有规则）
     - 中（删链）：nft delete chain inet my_table my_chain （删除my_table\my_chain链）
@@ -231,7 +233,7 @@ tags: [GFW]
     - 巨（删除表）：nft delete table inet my_table  (删除my_table表)
     - 完全清空：nft flush ruleset (清空所有表)
 
-##### 3.3 修改规则
+#### 3.3 修改规则
 
 - **replace 命令**，下面我们展示一下如何修改一条已存在的规则，输入命令：
 
@@ -280,11 +282,11 @@ tags: [GFW]
   很简单，比如现在我们直接在网关机器上访问qq.com：
   网关自带公网IP：202.96.112.113:1234 （1234是一个随机端口），向qq.com (58.247.214.47:80) 发起一个WEB请求，这个发送包的状态是：
   
-  - （<font color=#0000FF>目标：58.247.214.47:80 源：202.96.112.113:1234</font>）
+  - （(font color=#0000FF)目标：58.247.214.47:80 源：202.96.112.113:1234(/font)）
   
   QQ服务器处理完毕后，回传数据，这个回传包的状态是：
   
-  - （<font color=#0000FF>目标：202.96.112.113:1234 源：58.247.214.47:80</font>）
+  - （(font color=#0000FF)目标：202.96.112.113:1234 源：58.247.214.47:80(/font)）
   
   数据包传输结束。
 
@@ -418,8 +420,8 @@ tags: [GFW]
 - 将当前规则导出成脚本：
 
   ```bash
-  echo -n "" > /root/test.nft (首先清空test.nft)
-  nft -s list ruleset >> /root/test.nft (将当前规则导出为脚本文件)
+  echo -n "" ) /root/test.nft (首先清空test.nft)
+  nft -s list ruleset )) /root/test.nft (将当前规则导出为脚本文件)
   ```
 
   查看脚本文件：
