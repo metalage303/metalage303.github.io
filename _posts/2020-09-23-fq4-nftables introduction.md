@@ -8,7 +8,7 @@ tags: [GFW]
 
 #### 1、关于Linux防火墙
 
-在Linux系统里，防火墙并非只负责网络安全，只要跟数据包相关的事务都与之有关，比如说局域网内共享上网，尽管听上去和网络安全无关，但也是通过防火墙命令来实现的。
+在Linux系统里，防火墙并非只负责网络安全，凡是跟数据包相关的事务都由它负责，比如说局域网内共享上网，尽管听上去和网络安全无关，但也是通过防火墙命令来实现的。
 
 我相信大家经常会见到一些诸如Netfilter、Iptables、Firewalld、nftables 这样的命令，他们都属于防火墙相关命令，那么这几个命令之间究竟是什么关系呢？
 
@@ -20,18 +20,16 @@ tags: [GFW]
 
   - Nftables：与Iptables平级且作用相当，但是它比前者更新、更时髦；
 
-  - Firewalld：位于最顶层的前端工具（支持图形和命令行），通过调用在后端运行Iptables（或Nftables）让防火墙配置及使用变得更容易。
+  - Firewalld：一个位于最顶层的前端工具，它通过调用在后端运行Iptables（或Nftables）让防火墙配置变得更容易。
 
   - 防火墙在Linux系统中的演变：
     - 最早：只有两层Iptables -) Netfilter
     - 后来：为了简化操作，添加了Firewalld，变成了3层：Firewalld -) Iptables -) Netfilter
     - 现在：新版本Linux系统中，基本结构不变，还是3层：Firewalld -) Nftable -) Netfilter（请注意Iptables被替换成更时髦的Nftables）
     
-  - PS: 在三层结构中，位于顶层的Firewalld只是为了让防火墙操作更简单和人性化，它并非防火墙系统的必需品，如果操作者对中间层（Iptables或Nftwable）的配置很熟悉，可以关闭Firewalld，纯粹用iptables/nftables搭建防火墙，其效果一样。
+  - PS: 位于顶层的Firewalld并非防火墙的必需品，如果操作者对中间层（iptables或nftwable）的配置很熟悉，可以关闭Firewalld，直接用iptables/nftables构建防火墙。
   
-  ![](https://raw.githubusercontent.com/metalage303/metalage303.github.io/master/_posts/images/nft-01.png)
-
-
+    ![](https://raw.githubusercontent.com/metalage303/metalage303.github.io/master/_posts/images/nft-01.png)
 
 - 由于iptables已经处于被淘汰的边缘，本节只讨论最新的nftables，并且本节也不讨论firewalld，如果对这二者感兴趣的同学，请自行参考其他攻略。
 
@@ -41,7 +39,7 @@ tags: [GFW]
 
 - 一个完整的nftables防火墙规则由簇（Family）、表（Tables）、链（Chains）、规则（Rules）组成。
 
-- 基本结构：簇 ) 表 ) 链 ) 规则
+- 基本结构：簇 > 表 > 链 > 规则
 
   - **簇（Family）** ， 由5个基本簇组成：
     - ip: 匹配ipv4数据包
@@ -282,11 +280,11 @@ tags: [GFW]
   很简单，比如现在我们直接在网关机器上访问qq.com：
   网关自带公网IP：202.96.112.113:1234 （1234是一个随机端口），向qq.com (58.247.214.47:80) 发起一个WEB请求，这个发送包的状态是：
   
-  - （(font color=#0000FF)目标：58.247.214.47:80 源：202.96.112.113:1234(/font)）
+  - （<font color=#0000FF>目标：58.247.214.47:80 源：202.96.112.113:1234</font>）
   
   QQ服务器处理完毕后，回传数据，这个回传包的状态是：
   
-  - （(font color=#0000FF)目标：202.96.112.113:1234 源：58.247.214.47:80(/font)）
+  - （<font color=#0000FF>目标：202.96.112.113:1234 源：58.247.214.47:80</font>）
   
   数据包传输结束。
 
