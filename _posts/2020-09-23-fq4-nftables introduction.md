@@ -225,7 +225,7 @@ tags: [GFW]
 
   注意：第3号规则消失了，已被删除。
 
-  - 删除可以用nft delete或者nft flush来完成，按照： **表 ) 链 ) 规则** 的作用范围，有着不同的效力：
+  - 删除可以用nft delete或者nft flush来完成，从大到小按照： **表 > 链 > 规则** ，有着不同的效力：
     - 微（删规则）：nft delete rule  inet my_table my_chain handle 3 （删除my_table\my_chain链中的3号规则）
     - 小（清空规则）：nft flush chain inet my_table my_chain （清空my_table\my_chain链的所有规则）
     - 中（删链）：nft delete chain inet my_table my_chain （删除my_table\my_chain链）
@@ -420,8 +420,8 @@ tags: [GFW]
 - 将当前规则导出成脚本：
 
   ```bash
-  echo -n "" ) /root/test.nft (首先清空test.nft)
-  nft -s list ruleset )) /root/test.nft (将当前规则导出为脚本文件)
+  echo -n "" > /root/test.nft (首先清空test.nft)
+  nft -s list ruleset >> /root/test.nft (将当前规则导出为脚本文件)
   ```
 
   查看脚本文件：
