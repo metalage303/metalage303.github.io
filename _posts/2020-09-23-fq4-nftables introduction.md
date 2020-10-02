@@ -24,8 +24,8 @@ tags: [GFW]
 
   - 防火墙在Linux系统中的演变：
     - 最早：只有两层Iptables -) Netfilter
-    - 后来：为了简化操作，添加了Firewalld，变成了3层：Firewalld -) Iptables -) Netfilter
-    - 现在：新版本Linux系统中，基本结构不变，还是3层：Firewalld -) Nftable -) Netfilter（请注意Iptables被替换成更时髦的Nftables）
+    - 后来：为了简化操作，添加了Firewalld，变成了3层：Firewalld -> Iptables -> Netfilter
+    - 现在：新版本Linux系统中，基本结构不变，还是3层：Firewalld -> Nftable -> Netfilter（请注意Iptables被替换成更时髦的Nftables）
     
   - PS: 位于顶层的Firewalld并非防火墙的必需品，如果操作者对中间层（iptables或nftwable）的配置很熟悉，可以关闭Firewalld，直接用iptables/nftables构建防火墙。
   
@@ -187,7 +187,7 @@ tags: [GFW]
   这是一个高频率命令，你可以把它做成一个alias方便使用】
   
 - **insert 命令**，这个命令和**add** 命令差不多，都是起增加规则的作用，比如我们在2号规则前面加一条新规则：
-  `nft insert rule inet my_table my_chain handle 2  ip saddr 127.0.0.99 accept`
+  `nft insert rule inet my_table my_chain handle 2 ip saddr 127.0.0.99 accept`
 
   再用`nft --handle list chain inet  my_table my_chain` 命令看看，系统回显如下：
 
@@ -229,7 +229,7 @@ tags: [GFW]
     - 中（删链）：nft delete chain inet my_table my_chain （删除my_table\my_chain链）
     - 大（清空链）：nft flush table inet  my_table （清空my_table表中的所有链）
     - 巨（删除表）：nft delete table inet my_table  (删除my_table表)
-    - 完全清空：nft flush ruleset (清空所有表)
+    - 超（完全清空）：nft flush ruleset (清空所有表)
 
 #### 3.3 修改规则
 
@@ -288,7 +288,7 @@ tags: [GFW]
   
   数据包传输结束。
 
-但是，如果整个局域网只有一个公网IP，局域网有多台机器需要同时上网的时候就要稍微复杂一点了。
+但是，如果整个局域网只有一个公网IP，局域网有多台机器需要同时上网的时候就要复杂多了。
 
 ----
 
@@ -308,7 +308,7 @@ tags: [GFW]
 
 - 192.168.1.3:2345 发出一个数据包到 58.247.214.47:80（QQ服务器,80端口）
 
-- 网关将其源IP修改为网关的公网IP，又因为两台分机的端口都是2345，所以网关必须为其分配两个不同的端口，修改完毕后，首先将这个对应关系记录到**Connection Track Table**，然后将数据包发送到QQ.COM
+- 网关将其源IP修改为网关的公网IP，又因为两台分机的随机端口都是2345，所以网关必须为其分配两个不同的端口，修改完毕后，首先将这个对应关系记录到**Connection Track Table**，然后将数据包发送到QQ.COM
 
   ----
 
@@ -418,7 +418,7 @@ tags: [GFW]
 - 将当前规则导出成脚本：
 
   ```bash
-  echo -n "" > /root/test.nft (首先清空test.nft)
+  echo -n "" > /root/test.nft (首先清空test.nft，此处如不清空test.nft，新的规则将续写在该文件尾部)
   nft -s list ruleset >> /root/test.nft (将当前规则导出为脚本文件)
   ```
 
