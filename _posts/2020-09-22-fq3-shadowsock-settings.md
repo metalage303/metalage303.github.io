@@ -1,6 +1,6 @@
 ---
 layout: post
-title: LET'S FQ3 - 部署Shadowsockas透明代理服务器（实战）
+title: 翻墙教程（4） - 部署Shadowsockas透明代理服务器（实战）
 description: 
 summary: Options to learn to code online.
 tags: [GFW]

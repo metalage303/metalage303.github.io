@@ -1,6 +1,6 @@
 ---
 layout: post
-title: LET'S FQ1 - DNS污染的原理以及应对策略（实战）
+title: 翻墙教程（2）- DNS污染的原理以及应对策略（实战）
 description: 
 summary: Options to learn to code online.
 tags: [GFW]

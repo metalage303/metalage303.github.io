@@ -1,6 +1,6 @@
 ---
 layout: post
-title: LET'S FQ2 - 翻墙简史
+title: 翻墙教程（3） - 翻墙简史（随笔）
 description: 
 summary: Options to learn to code online.
 tags: [GFW]
