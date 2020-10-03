@@ -65,7 +65,7 @@ chain POSTROUTING {
 
 - 将以上内容粘贴复制成一个文件，比如`/root/myruleset` ，唯一需要修改的地方就是将123.123.123.123改为你自己的SS远程服务器地址。
 
-- 文件创建完毕后，通过 ``nft -f /root/my-ruleset` 命令加载为nftables规则。
+- 文件创建完毕后，通过 `nft -f /root/my-ruleset` 命令加载为nftables规则。
 
 - 通过`nft list ruleset` 查看，刚才导入的规则已经生效了（nftables会自动将注释部分取消），显示如下：
 
@@ -223,5 +223,5 @@ chain POSTROUTING {
 
 - 最后，再用一张图大致说明一下本章节的总体流程：
 
-  ![](D:\Sync\Code\metalage303.github.io\_posts\images\nft-05.png)
+  ![](https://github.com/metalage303/metalage303.github.io/blob/master/_posts/images/nft-05.png?raw=true)
 
