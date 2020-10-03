@@ -142,15 +142,15 @@ chain POSTROUTING {
   其他内容都没有变，请注意，PREROUTING链新增了一条规则：
 
   ```bash
-          chain PREROUTING {
-                  type nat hook prerouting priority dstnat; policy accept;
-                  meta l4proto tcp # match-set gfwlist dst jump SHADOWSOCKS
-          }
+  chain PREROUTING {
+  	type nat hook prerouting priority dstnat; policy accept;
+  	meta l4proto tcp # match-set gfwlist dst jump SHADOWSOCKS
+  }
   ```
 
   多了一行： **meta l4proto tcp # match-set gfwlist dst jump SHADOWSOCKS**
 
-  这一行规则是当我们敲入上面那条iptables命令的同时，nftables为我们自动生成的，经我的实际观察，此规则貌似只能通过nftables自动生成，没办法通过脚本方式反推回去（或许是我没找到方法）。但无论如何，能解决问题就行了，通过这种迂回的方法相当于在nftables和ipset之间建立了一条通道，让原本不兼容的二者至少可以做到单向访问。尽管处理方式不太优雅，但从结果而言确实是可行的，我也没有感觉在效率上有什么损失。
+  这一行规则是当我们敲入上面那条iptables命令的同时，nftables为我们自动生成的，经我的实际观察，此规则貌似只能通过nftables自动生成，没办法通过脚本或者nft命令行方式反推回去（或许是我没找到方法）。但无论如何，能解决问题就行了，利用这种迂回的方式相当于在nftables和ipset之间建立了一条通道，让原本不兼容的二者至少可以做到单向访问。尽管处理方式不太优雅，但从结果而言确实是可行的，我也没有感觉在效率上有什么损失。
 
 - 好，现在咱们回到局域网分机上，此时已经可以正常访问google.com了，整个智能翻墙工作完成！
 
