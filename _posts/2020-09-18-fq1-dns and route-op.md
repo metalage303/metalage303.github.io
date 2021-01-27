@@ -23,7 +23,7 @@ tags: [GFW]
   ````bash
   dnf install epel-release -y
   dnf install git -y
-  dnf install -y gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto udns-devel c-ares-devel libev-devel libsodium-devel mbedtls-devel net-tools wget bind-utils
+  dnf install -y gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto udns-devel c-ares-devel libev-devel libsodium-devel mbedtls-devel net-tools wget bind-utils nano
   ````
 
 #### 2、配置 dnscrypt-proxy：
@@ -318,6 +318,8 @@ tags: [GFW]
     - /etc/dnscrypt-proxy/dnscrypt-proxy.toml 文件中：**listen_addresses = []** （这个中括号一定要为空）
     
     - /usr/lib/systemd/system/dnscrypt-proxy.socket 文件中：**Socket** 一节原封不动复制粘贴我的配置
+    
+-  如果显示：Unable to retrieve source [public-resolvers]，这个问题倒不大，因为服务器在境外有时候会出现读取不了的情况，只需要重新restart一下dnscrypt-proxy服务，再用status查看一下，一般来说多刷几次就正常了。
 
 - 检查完毕后，用 **reboot** 命令重启，重启后输入：
 
